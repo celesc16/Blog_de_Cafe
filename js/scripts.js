@@ -36,14 +36,12 @@ form.addEventListener('submit', function(e){
     //validar formulario
     const { name,email,message } = data
 
-    if (name === '' || email === '' || message === '') {
-        msgerror("Todos los campos son Obligatorios");
+    if (name === '' || email === '' || message === '' ) {
+        showAlert("Todos los campos son Obligatorios" ,true);
         return;
     }
-
-
     //Enviar formulario
-    msgsend('Enviado')
+    showAlert('Enviado')
 
 });
 
@@ -53,34 +51,22 @@ function readText(e){
     console.log(data)
 }
 
-//Mostrar mensaje de que se envio correctamente
-function msgsend(msg){
+function showAlert(msg, error = null){
     const alert = document.createElement('P');
     alert.textContent = msg;
-    alert.classList.add('send');
 
-    form.appendChild(alert);
+    if(error) {
+        alert.classList.add('error')
+    }else{
+        alert.classList.add('send')
+    }
 
-    //Desaparezca el mensaje 5s despues de mostrarse
+    form.appendChild(alert)
+
     setTimeout(() => {
         alert.remove();
     },5000)
-
-}
-
-//mostrar error en pantalla
-function msgerror(msg){
-    const error = document.createElement('P');
-    error.textContent = msg;
-    error.classList.add('error');
-
-    form.appendChild(error);
-
-    //Desaparezca el mensaje 5s despues de mostrarse
-    setTimeout(() => {
-        error.remove();
-    },5000)
     
 
-};
 
+}
